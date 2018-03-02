@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS other (
 
 CREATE TABLE IF NOT EXISTS Permanent_Collection (
     Art_ID INT UNSIGNED NOT NULL,
-    Data_Acquired VARCHAR(45) NOT NULL,
+    Date_Acquired VARCHAR(45) NOT NULL,
     CStatus ENUM('on display', 'on loan', 'stored'),
     CEpoch VARCHAR(45) NOT NULL,
     Cost INT NOT NULL,
