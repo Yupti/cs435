@@ -1,18 +1,6 @@
 Create database ART_MUSEUM;
 use ART_MUSEUM;
 
-CREATE TABLE IF NOT EXISTS Artist (
-    Artist_Name VARCHAR(45) NOT NULL,
-    Date_Born VARCHAR(45) NOT NULL,
-    Date_Died VARCHAR(45) NOT NULL,
-    Country_of_Origin VARCHAR(45) NOT NULL,
-    Epoch VARCHAR(45) NOT NULL,
-    Main_Style VARCHAR(45) NOT NULL,
-    Description VARCHAR(150) NOT NULL,
-    PRIMARY KEY (Artist_Name),
-    UNIQUE (Artist_Name)
-);
-
 CREATE TABLE IF NOT EXISTS art_object (
     ID_NO INT UNSIGNED NOT NULL AUTO_INCREMENT,
     Artist VARCHAR(45),
@@ -23,8 +11,21 @@ CREATE TABLE IF NOT EXISTS art_object (
     Origin VARCHAR(45) NOT NULL,
     Epoch VARCHAR(45) NOT NULL,
     PRIMARY KEY (ID_NO)
-    #FOREIGN KEY (Artist)
-        #REFERENCES Artist (Artist_Name)
+);
+
+CREATE TABLE IF NOT EXISTS Artist (
+    Art_ID INT UNSIGNED NOT NULL,
+    Artist_Name VARCHAR(45) NOT NULL,
+    Date_Born VARCHAR(45) NOT NULL,
+    Date_Died VARCHAR(45) NOT NULL,
+    Country_of_Origin VARCHAR(45) NOT NULL,
+    Epoch VARCHAR(45) NOT NULL,
+    Main_Style VARCHAR(45) NOT NULL,
+    Description VARCHAR(150) NOT NULL,
+    PRIMARY KEY (Artist_Name),
+    FOREIGN KEY (Art_ID)
+        REFERENCES art_object (ID_NO),
+    UNIQUE (Artist_Name)
 );
 
 CREATE TABLE if not exists painting (
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS Permanent_Collection (
     Data_Acquired VARCHAR(45) NOT NULL,
     CStatus ENUM('on display', 'on loan', 'stored'),
     CEpoch VARCHAR(45) NOT NULL,
-    Cost VARCHAR(45) NOT NULL,
+    Cost INT NOT NULL,
     FOREIGN KEY (Art_ID)
         REFERENCES art_object (ID_NO)
 );
@@ -93,6 +94,7 @@ CREATE TABLE IF NOT EXISTS Exhibitions (
 );
 
 CREATE TABLE IF NOT EXISTS Collections (
+	Art_ID INT UNSIGNED NOT NULL,
     CName VARCHAR(45) NOT NULL,
     CType VARCHAR(45) NOT NULL,
     Description VARCHAR(150) NOT NULL,
@@ -100,6 +102,8 @@ CREATE TABLE IF NOT EXISTS Collections (
     Phone VARCHAR(20) NOT NULL,
     Contact_Person VARCHAR(45) NOT NULL,
     PRIMARY KEY (CName),
+    FOREIGN KEY (ART_ID)
+		REFERENCES art_object (ID_NO),
     UNIQUE (CName)
 );
 
